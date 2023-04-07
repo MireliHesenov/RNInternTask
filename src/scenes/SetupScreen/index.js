@@ -3,6 +3,7 @@ import { Text, View , StyleSheet , TouchableOpacity} from 'react-native'
 import CustomInput from '../../components/CustomInput'
 import { useSelector } from 'react-redux'
 import FormButton from '../../components/FormButton'
+import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent'
 
 const SetupScreen = ({navigation}) => {
     const currentCountry = useSelector(state=> state.country.currentCountry);
@@ -28,15 +29,18 @@ const SetupScreen = ({navigation}) => {
         isNumberValid(phoneNumber) && navigation.navigate("HomeScreen")
     }
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingComponent>
+        <View style={styles.container}>
         <View style={styles.inputContainer}>
-        <TouchableOpacity style={styles.phoneIndex} onPress={() => navigation.push("CountryScreen")}><Text>{currentCountry ? currentCountry.countrycode : "select"}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.push("CountryScreen")}><Text style={styles.phoneIndex} >{currentCountry ? currentCountry.countrycode : "select"}</Text></TouchableOpacity>
         <View style={styles.phoneNumber}><CustomInput placeholder="Phone" numeric={true} onChange={(text) => setPhone(text)} value={phoneNumber} error={error}  /></View>
         </View>
             <FormButton onPress={() => onSubmit}> 
                 Get Started
             </FormButton>
     </View>
+    </KeyboardAvoidingComponent>
+    
   )
 }
 
@@ -47,10 +51,11 @@ const styles = StyleSheet.create({
     },
     inputContainer:{
         flexDirection:"row",
-        alignItems:"center"
+        alignItems:"center",
     },
     phoneIndex:{
-        padding:4
+        padding:4,
+        justifyContent:"center"
     },
     phoneNumber:{
         flex:1,

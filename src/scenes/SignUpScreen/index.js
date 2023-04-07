@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
 import CustomInput from '../../components/CustomInput'
 import FormButton from '../../components/FormButton';
+import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent';
 const SingupScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassWord] = useState("");
@@ -39,12 +40,15 @@ const SingupScreen = ({navigation}) => {
       }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingComponent>
+            <View style={styles.container}>
             <CustomInput iconName="email-outline" placeholder="email" onChange={(text) => setEmail(text)} value={email} error={errors.email} />
             <CustomInput iconName="lock-outline" password placeholder="password" onChange={(text) => setPassWord(text)} value={password} error={errors.password} />
-            <CustomInput iconName="lock-outline" password placeholder="repeat password" onChange={(text) => setRepeatPassword(text)} value={repeatPassword} />
+            <CustomInput iconName="lock-outline" password placeholder="repeat password" onChange={(text) => setRepeatPassword(text)} value={repeatPassword} error={errors.password} />
             <FormButton onPress={() => onSubmit}>Submit</FormButton>
         </View>
+        </KeyboardAvoidingComponent>
+       
     )
 }
 

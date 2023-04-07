@@ -7,7 +7,7 @@ const icons = {
     password: "lock-outline",
 
 }
-const  CustomInput = ({iconName, placeholder, onChange , value, error , numeric , password }) => {
+const  CustomInput = ({iconName, placeholder, onChange , value, error , numeric , password , autoFocus}) => {
     const [hasFocus , setFocus ] = useState(false)
     const keyboardType = numeric ? 'numeric' : 'default';
 
@@ -28,6 +28,7 @@ const  CustomInput = ({iconName, placeholder, onChange , value, error , numeric 
         placeholder={placeholder.charAt(0).toUpperCase() + placeholder.slice(1)}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
+        autoFocus={autoFocus}
         />
     </View>
     

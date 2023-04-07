@@ -4,6 +4,8 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import CountryOption from '../../components/CountryOption'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCountryData } from '../../store/countryReducer'
+import CustomInput from '../../components/CustomInput'
+import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent'
 
 const country = [{id:1,name:"Azerbaijan" , code:"+994"}]
 const CountryScreen = () => {
@@ -35,26 +37,22 @@ const CountryScreen = () => {
   
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingComponent>
+      <View style={styles.container}>
       <View style={styles.header}>
       {showInput ? (
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            value={inputText}
-            onChangeText={setInputText}
+          <CustomInput  value={inputText}
+            onChange={(text) => setInputText(text)}
             placeholder="Filter items"
-            autoFocus
-          />
-          <TouchableOpacity onPress={handleCancelPress}>
-            <Text style={styles.cancel}>Cancel</Text>
-          </TouchableOpacity>
+            iconName="filter"
+            autoFocus />
         </View>
       ) : (
         <>
-          <Text>Select Country</Text>
+          <Text style={styles.headerText}>Select Country</Text>
           <TouchableOpacity onPress={handleFilterPress}>
-          <Icon name="filter" color="red" size={30} />
+          <Icon name="filter" color="#005B96" size={25} />
           </TouchableOpacity>
         
         </>
@@ -62,6 +60,8 @@ const CountryScreen = () => {
       </View>
       <FlatList data={filteredCountries} renderItem={({item}) => <CountryOption country={item} />} />
     </View>
+    </KeyboardAvoidingComponent>
+    
   )
 }
 
@@ -73,8 +73,17 @@ const styles =  StyleSheet.create({
   },
   header:{
     flexDirection:"row",
-    justifyContent:"space-between"
+    justifyContent:"space-between",
+    padding:4
   },
+  inputContainer:{
+    flex:1,
+    alignItems:"stretch",
+  },
+  headerText:{
+    color:"#141414",
+    fontSize: 20
+  }
  
 })
 
